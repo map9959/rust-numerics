@@ -49,3 +49,27 @@ pub fn newton_raphson<T: Fn(f64) -> f64>(f: T, start_point: f64) -> Result<f64, 
     }
     Ok(zero_point)
 }
+
+#[test]
+fn test_bisection() -> Result<(), MathError>{
+    let f = |x: f64| {2.0*x*x+3.0*x-5.0};
+    let res = bisection(f, -1.0, 2.0)?;
+    assert!(res - (1.0) < 0.000001);
+    Ok(())
+}
+
+#[test]
+fn test_secant() -> Result<(), MathError>{
+    let f = |x: f64| {2.0*x*x+3.0*x-5.0};
+    let res3 = secant(f, -1.0, 2.0)?;
+    assert!(res3 - (1.0) < 0.000001);
+    Ok(())
+}
+
+#[test]
+fn test_newton_raphson() -> Result<(), MathError>{
+    let f = |x: f64| {2.0*x*x+3.0*x-5.0};
+    let res3 = newton_raphson(f, -43.0)?;
+    assert!(res3 - (-2.5) < 0.000001);
+    Ok(())
+}
